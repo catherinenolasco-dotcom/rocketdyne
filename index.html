@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catherine Nolasco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#0a0c0f;
+    --bg-2:#000000;
+    --surface:#12151b;
+    --surface-2:#181c23;
+    --line:#262b33;
+    --ink:#f3f4f6;
+    --ink-muted:#9aa1ac;
+    --ink-faint:#6b7280;
+    --accent:#ffae2b;
+    --accent-ink:#1a1206;
+    --accent-soft:#3a2a10;
+    --accent-line:#c98a1e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Figtree',Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-left:max(16px, env(safe-area-inset-left, 0px));
+    padding-right:max(16px, env(safe-area-inset-right, 0px));
+  }
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+  h1,h2,h3{font-family:'Barlow Condensed',Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.3px;text-wrap:balance;margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .eyebrow{
+    font-family:'Figtree',Arial,sans-serif;
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  /* Announcement bar */
+  .announce{
+    background:var(--accent);
+    color:var(--accent-ink);
+    text-align:center;
+    font-weight:700;
+    font-size:0.82rem;
+    letter-spacing:0.3px;
+    padding:8px 16px;
+    padding-top:calc(8px + env(safe-area-inset-top, 0px));
+  }
+
+  /* Nav */
+  nav{
+    position:sticky;
+    top:env(safe-area-inset-top, 0px);
+    z-index:50;
+    background:rgba(0,0,0,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:14px 0;
+  }
+  .wordmark{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:0.5px;
+    white-space:nowrap;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .wordmark .dot{color:var(--accent);}
+  .navlinks{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    min-width:0;
+    justify-content:safe flex-end;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .navlinks::-webkit-scrollbar{display:none;}
+  .navlinks a{
+    font-size:0.82rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+    color:var(--ink-muted);
+    text-decoration:none;
+    white-space:nowrap;
+    padding:4px 2px;
+    border-bottom:2px solid transparent;
+    transition:color .15s, border-color .15s;
+  }
+  .navlinks a:hover{color:var(--ink);border-color:var(--accent);}
+
+  section{padding-block:56px;}
+  .section-head{margin-bottom:28px;max-width:720px;}
+  .section-head h2{font-size:clamp(1.7rem,4vw,2.3rem);margin-top:6px;}
+  .section-head p{color:var(--ink-muted);font-size:1rem;margin-top:10px;line-height:1.55;}
+
+  /* Hero */
+  .hero{
+    padding-top:64px;
+    padding-bottom:48px;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, var(--accent-soft), transparent 60%),
+      linear-gradient(180deg, #000000 0%, var(--bg) 65%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{display:grid;gap:14px;}
+  .hero-eyebrow{display:flex;align-items:center;gap:10px;}
+  .hero-eyebrow .rule{width:34px;height:2px;background:var(--accent);}
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,4.6rem);
+    line-height:0.98;
+    margin-top:10px;
+  }
+  .hero .tagline{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:700;
+    font-size:clamp(1.15rem,2.6vw,1.5rem);
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-top:8px;
+  }
+  .hero .role-line{
+    margin-top:18px;
+    font-size:1.05rem;
+    color:var(--ink-muted);
+    max-width:640px;
+    line-height:1.6;
+  }
+  .hero .role-line b{color:var(--ink);font-weight:700;}
+  .kw-line{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .kw-chip{
+    font-size:0.76rem;
+    font-weight:600;
+    letter-spacing:0.3px;
+    color:var(--ink-muted);
+    border:1px solid var(--line);
+    background:var(--surface);
+    border-radius:100px;
+    padding:5px 12px;
+  }
+  .stat-row{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+  }
+  .stat-tile{
+    padding:22px 18px 6px 0;
+    border-right:1px solid var(--line);
+  }
+  .stat-tile:last-child{border-right:none;}
+  .stat-num{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(1.9rem,4.2vw,2.6rem);
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .stat-label{
+    margin-top:6px;
+    font-size:0.82rem;
+    color:var(--ink-muted);
+    line-height:1.4;
+  }
+
+  /* Summary */
+  .summary-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:880px;}
+  .summary-grid li{
+    list-style:none;
+    display:flex;
+    gap:14px;
+    font-size:1.02rem;
+    line-height:1.6;
+    color:#dfe1e5;
+  }
+  .summary-grid li .num{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:800;
+    color:var(--accent);
+    font-size:1.3rem;
+    flex:none;
+    width:28px;
+  }
+
+  /* Role fit cards */
+  .fit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .fit-card{background:var(--surface);padding:26px 24px;display:flex;flex-direction:column;gap:12px;}
+  .fit-card .tag{font-size:0.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);}
+  .fit-card h3{font-size:1.25rem;font-weight:700;text-transform:none;font-family:'Figtree',Arial,sans-serif;letter-spacing:0;color:var(--ink);}
+  .fit-card p{margin:0;color:var(--ink-muted);font-size:0.92rem;line-height:1.55;}
+  .fit-card .proof{
+    margin-top:auto;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+    font-size:0.88rem;
+    color:#c9cdd3;
+    line-height:1.55;
+  }
+  .fit-card .proof b{color:var(--accent);font-weight:700;}
+
+  /* Results */
+  .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .result-tile{background:var(--surface);padding:28px 22px;}
+  .result-num{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(2.1rem,4.5vw,2.9rem);
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .result-num span{color:var(--accent);}
+  .result-ctx{margin-top:8px;font-size:0.9rem;color:var(--ink-muted);line-height:1.5;}
+
+  /* Values */
+  .values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .value-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    padding:22px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .value-quote{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.3px;
+  }
+  .value-quote span{color:var(--ink-faint);font-weight:600;font-size:0.72rem;letter-spacing:1px;display:block;text-transform:uppercase;margin-bottom:4px;}
+  .value-body{color:#d7dade;font-size:0.94rem;line-height:1.6;}
+
+  /* Tools */
+  .tools-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .tools-col h4{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:0.4px;
+    text-transform:uppercase;
+    color:var(--ink);
+    border-bottom:1px solid var(--line);
+    padding-bottom:8px;
+    margin-bottom:10px;
+  }
+  .chip-wrap{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{
+    font-size:0.8rem;
+    color:#d7dade;
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:5px 10px;
+    border-radius:6px;
+  }
+  .comp-list{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .comp-item{
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--ink-muted);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:10px 12px;
+    text-align:center;
+    border-radius:4px;
+  }
+
+  /* Experience */
+  .exp-role{
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:230px 1fr;
+    gap:24px;
+  }
+  .exp-role:last-child{border-bottom:1px solid var(--line);}
+  .exp-when{color:var(--accent);font-weight:700;font-size:0.86rem;letter-spacing:0.3px;}
+  .exp-company{margin-top:6px;color:var(--ink-muted);font-size:0.85rem;line-height:1.5;}
+  .exp-title{font-family:'Figtree',Arial,sans-serif;font-weight:700;font-size:1.2rem;color:var(--ink);text-transform:none;letter-spacing:0;}
+  .exp-bullets{margin:12px 0 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .exp-bullets li{
+    position:relative;
+    padding-left:16px;
+    font-size:0.94rem;
+    line-height:1.6;
+    color:#d3d6db;
+  }
+  .exp-bullets li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;background:var(--accent);}
+
+  /* Career arc */
+  .arc-wrap{margin-top:8px;}
+  .arc-track{
+    position:relative;
+    height:64px;
+    background:var(--surface);
+    border:1px solid var(--line);
+  }
+  .arc-seg{
+    position:absolute;
+    top:0;bottom:0;
+    background:var(--surface-2);
+    border-right:2px solid var(--bg);
+  }
+  .arc-seg.accent{background:var(--accent);}
+  .arc-seg.accent2{background:#7a5a22;}
+  .arc-seg.accent3{background:#ffd27a;}
+  .arc-label{
+    position:absolute;
+    top:100%;
+    margin-top:10px;
+    font-size:0.78rem;
+    line-height:1.4;
+    white-space:nowrap;
+  }
+  .arc-label b{display:block;color:var(--ink);font-weight:700;}
+  .arc-label span{color:var(--ink-muted);}
+  .arc-years{
+    display:flex;
+    justify-content:space-between;
+    margin-top:8px;
+    font-size:0.74rem;
+    color:var(--ink-faint);
+    font-variant-numeric:tabular-nums;
+  }
+  .arc-legend{
+    margin-top:56px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    font-size:0.82rem;
+    color:var(--ink-muted);
+  }
+  .arc-legend b{color:var(--ink);font-weight:600;}
+  .arc-note{margin-top:14px;font-size:0.82rem;color:var(--ink-faint);line-height:1.5;max-width:760px;}
+
+  /* Credentials */
+  .cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .cred-card{background:var(--surface);border:1px solid var(--line);padding:22px;}
+  .cred-card .badge{
+    display:inline-block;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.6px;
+    color:var(--accent-ink);
+    background:var(--accent);
+    padding:3px 8px;
+    border-radius:4px;
+    margin-bottom:12px;
+    text-transform:uppercase;
+  }
+  .cred-card h4{font-family:'Figtree',Arial,sans-serif;font-weight:700;font-size:1.02rem;text-transform:none;letter-spacing:0;color:var(--ink);}
+  .cred-card p{margin:6px 0 0;color:var(--ink-muted);font-size:0.87rem;line-height:1.5;}
+
+  /* Testimonials */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .testi-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .testi-quote{font-size:0.92rem;line-height:1.6;color:#dfe1e5;flex:1;}
+  .testi-quote::before{content:"\201C";color:var(--accent);font-family:Georgia,serif;font-size:1.4rem;line-height:0;position:relative;top:6px;margin-right:2px;}
+  .testi-who{font-size:0.82rem;color:var(--ink-muted);border-top:1px solid var(--line);padding-top:12px;}
+  .testi-who b{color:var(--ink);display:block;font-weight:700;}
+
+  .reco-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .reco-card{background:var(--surface);border:1px solid var(--line);padding:26px;}
+  .reco-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:12px;flex-wrap:wrap;}
+  .reco-head b{font-size:1.02rem;color:var(--ink);}
+  .reco-head .role{display:block;font-size:0.82rem;color:var(--ink-muted);font-weight:500;margin-top:2px;}
+  .reco-head .date{font-size:0.78rem;color:var(--ink-faint);white-space:nowrap;}
+  .reco-body{font-size:0.9rem;line-height:1.65;color:#d3d6db;}
+
+  /* Footer / contact */
+  footer{
+    border-top:1px solid var(--line);
+    padding-block:48px;
+    padding-bottom:calc(48px + env(safe-area-inset-bottom, 0px));
+    background:#000000;
+  }
+  .footer-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;}
+  .footer-name{font-size:1.6rem;}
+  .footer-tag{color:var(--accent);font-weight:700;font-family:'Barlow Condensed',Arial,sans-serif;text-transform:uppercase;letter-spacing:0.4px;margin-top:4px;}
+  .contact-list{display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-align:right;}
+  .contact-list a{font-size:0.92rem;color:var(--ink-muted);text-decoration:none;}
+  .contact-list a:hover{color:var(--accent);}
+  .footer-bottom{
+    margin-top:36px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:0.78rem;
+    color:var(--ink-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  @media (max-width:860px){
+    .fit-grid,.results-grid{grid-template-columns:1fr;}
+    .values-grid{grid-template-columns:1fr;}
+    .tools-cols{grid-template-columns:1fr;gap:22px;}
+    .comp-list{grid-template-columns:repeat(2,1fr);}
+    .exp-role{grid-template-columns:1fr;gap:6px;}
+    .cred-grid{grid-template-columns:1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .reco-grid{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .stat-tile:nth-child(2n){border-right:none;}
+    .stat-tile:nth-child(1),.stat-tile:nth-child(2){border-bottom:1px solid var(--line);padding-bottom:18px;}
+    .contact-list{align-items:flex-start;text-align:left;}
+    .footer-grid{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+
+<div class="announce">Prepared for Rocketdyne &middot; Senior Manager - HR Operations &amp; People Analytics &middot; People Ops. Powered by AI.</div>
+
+<nav>
+  <div class="nav-inner wrap">
+    <div class="wordmark">CATHERINE NOLASCO<span class="dot">.</span></div>
+    <div class="navlinks">
+      <a href="#summary">Summary</a>
+      <a href="#fit">Role Fit</a>
+      <a href="#results">Results</a>
+      <a href="#values">Mission Fit</a>
+      <a href="#experience">Experience</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-eyebrow"><div class="rule"></div><span class="eyebrow">People Operations Portfolio</span></div>
+    <h1>Catherine Nolasco</h1>
+    <div class="tagline">People Ops. Powered by AI.</div>
+    <p class="role-line">Built for Rocketdyne's <b>Senior Manager - HR Operations &amp; People Analytics</b> role: a People Operations leader who has stood up HR infrastructure from zero, run it clean through six straight SOC&nbsp;2 audits, and automated the manual work out of the employee lifecycle with AI, SHRM-CP certified with 13+ years of progressive experience.</p>
+    <div class="kw-line">
+      <span class="kw-chip">HR Operations</span>
+      <span class="kw-chip">People Analytics</span>
+      <span class="kw-chip">HRIS Administration</span>
+      <span class="kw-chip">Process Automation</span>
+      <span class="kw-chip">Compliance &amp; Records</span>
+      <span class="kw-chip">Reporting &amp; Dashboards</span>
+      <span class="kw-chip">ADP Workforce Now</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat-tile"><div class="stat-num">13+</div><div class="stat-label">Years of progressive People Operations leadership</div></div>
+      <div class="stat-tile"><div class="stat-num">6</div><div class="stat-label">Consecutive clean SOC 2 Type 2 audits, zero findings</div></div>
+      <div class="stat-tile"><div class="stat-num">5</div><div class="stat-label">Countries of HR infrastructure built and owned</div></div>
+      <div class="stat-tile"><div class="stat-num">100%</div><div class="stat-label">Mandatory compliance signature completion, every cycle</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="summary">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Summary</span>
+      <h2>Why This Role, Why Now</h2>
+    </div>
+    <ul class="summary-grid">
+      <li><span class="num">01</span>People Operations leader with 13+ years of progressive experience, ready to build and run Rocketdyne's HR Operations and People Analytics function as it scales a distributed, multi-state workforce.</li>
+      <li><span class="num">02</span>Built a People Operations function from zero infrastructure to a 20-25 SOP employee lifecycle library and a tiered ticketing and SLA model, then owned HRIS administration, data integrity, and compliance across 5 countries for 7 years.</li>
+      <li><span class="num">03</span>Automation-first builder who designs AI-powered workflows (Claude, ChatGPT, Gemini, Zapier, n8n) across onboarding, offboarding, and HRIS updates, always with governance and human review built in.</li>
+      <li><span class="num">04</span>Deep compliance and records depth: EEO-1 reporting, ACA 1095-C filing, FLSA/ADA/FMLA adherence, I-9/E-Verify audit management, and six consecutive clean SOC 2 Type 2 audits.</li>
+      <li><span class="num">05</span>Proven cross-functional partner to Legal, IT, Payroll, and Finance, translating headcount, turnover, and service-delivery data into dashboards that inform executive decisions.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="fit" style="background:var(--bg-2);border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Role Fit</span>
+      <h2>Mapped to the Job Description</h2>
+      <p>The five areas of ownership in Rocketdyne's posting, matched to work I've already done.</p>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-card">
+        <span class="tag">HR Operations</span>
+        <h3>Owning the Employee Lifecycle</h3>
+        <p>Onboarding, offboarding, transactions, employment documentation, and personnel records, with a clear escalation path to Legal and HR Business Partners.</p>
+        <p class="proof"><b>Proof:</b> Built ASKPeople, a tiered-SLA ticketing system, and personally owned onboarding and offboarding, promotions, immigration, and parental leave for every employee at a 300+ person, 5-country org for 7 years.</p>
+      </div>
+      <div class="fit-card">
+        <span class="tag">Process Improvement &amp; Automation</span>
+        <h3>Automation-First, By Design</h3>
+        <p>Redesigning manual, error-prone processes with automation and AI, and governing them with triggers, business rules, and exception handling.</p>
+        <p class="proof"><b>Proof:</b> Designed a Claude-built Employee Action Form requiring approval before any HRIS change, taking adoption from zero to 100% and creating an audit trail that had never existed.</p>
+      </div>
+      <div class="fit-card">
+        <span class="tag">HRIS &amp; Technology</span>
+        <h3>System of Record, Owned End to End</h3>
+        <p>Daily HRIS administration and data integrity, plus system integration with IT, Finance, and Operations.</p>
+        <p class="proof"><b>Proof:</b> Owned ADP Workforce Now, Kallidus Sapling, and Rippling as system of record across two companies, leading the migration that unified 467 employees onto one source of truth.</p>
+      </div>
+      <div class="fit-card">
+        <span class="tag">Compliance, Records &amp; Governance</span>
+        <h3>Audit-Ready, Every Time</h3>
+        <p>Federal, state, and local employment law, audit-ready recordkeeping, and mandatory reporting including EEO-1, ACA, and state filings.</p>
+        <p class="proof"><b>Proof:</b> Six consecutive clean SOC 2 Type 2 audits and zero compliance violations through multiple reorganizations, while owning EEO-1, ACA 1095-C, I-9/E-Verify, and FLSA/ADA/FMLA adherence.</p>
+      </div>
+      <div class="fit-card">
+        <span class="tag">Reporting &amp; Analytics</span>
+        <h3>Data Leadership Can Act On</h3>
+        <p>Dashboards for headcount, turnover, onboarding, and compliance that turn operational data into decisions.</p>
+        <p class="proof"><b>Proof:</b> Delivered board-level headcount and compliance dashboards every quarter for 7 years, and built a first-of-its-kind reorg cost model that gave leadership visibility that never existed before.</p>
+      </div>
+      <div class="fit-card" style="background:var(--accent-soft);">
+        <span class="tag">Preferred Qualifications</span>
+        <h3>ADP Workforce Now &amp; Start-Up Pace</h3>
+        <p>Rocketdyne calls out ADP Workforce Now and start-up experience as preferred.</p>
+        <p class="proof"><b>Proof:</b> Ran ADP Workforce Now as system of record at Ridecell and Munchery, and served as the sole US-based HR leader at Prezent AI, a $70M+ VC-funded AI SaaS start-up. Aerospace/defense industry experience is the one gap I'm upfront about, and eager to close.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Results</span>
+      <h2>What Seven Years of Ownership Looks Like</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-tile"><div class="result-num"><span>13+</span> yrs</div><div class="result-ctx">Progressive People Operations leadership, individual contributor to Director</div></div>
+      <div class="result-tile"><div class="result-num"><span>6</span>/6</div><div class="result-ctx">Consecutive clean SOC 2 Type 2 audits, zero findings</div></div>
+      <div class="result-tile"><div class="result-num"><span>20-25</span></div><div class="result-ctx">SOPs covering the full employee lifecycle, each with a named owner and backup</div></div>
+      <div class="result-tile"><div class="result-num">5-10<span>&nbsp;/day</span></div><div class="result-ctx">ASKPeople tickets resolved within 24-48 hours through a tiered SLA model</div></div>
+      <div class="result-tile"><div class="result-num"><span>467</span></div><div class="result-ctx">Employees unified onto one HRIS system of record after acquisition</div></div>
+      <div class="result-tile"><div class="result-num"><span>100</span>%</div><div class="result-ctx">Employee Action Form adoption, creating governance that didn't exist before</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="values" style="background:var(--bg-2);border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Mission Fit</span>
+      <h2>Where This Work Meets Rocketdyne's Mission</h2>
+      <p>Reading Rocketdyne's own mission statement and public results, next to work I've actually shipped.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-quote"><span>From Rocketdyne's careers page</span>&ldquo;At the Speed and Scale Missions Demand&rdquo;</div>
+        <div class="value-body">At Prezent AI I ran three concurrent, high-stakes People Operations initiatives at once, a 3-week C-suite search, an 18-person reorg, and a 60-day compliance audit, without slowing any of them down.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-quote"><span>From Rocketdyne's stated results</span>&ldquo;100% Mission Success&rdquo;</div>
+        <div class="value-body">Six consecutive clean SOC 2 Type 2 audits and zero compliance violations through multiple reductions in force and reorganizations over 7 years at Ridecell.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-quote"><span>From Rocketdyne's stated results</span>&ldquo;60+ Years of Flight Heritage&rdquo;</div>
+        <div class="value-body">I build HR infrastructure meant to outlast me: a 20-25 SOP library with a named owner and backup coverage for every process, not tribal knowledge that leaves when I do.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-quote"><span>From Rocketdyne's careers page</span>&ldquo;Move Space Forward&rdquo;</div>
+        <div class="value-body">My own operating principle is the same instinct pointed at People Operations: automation-first workflows that move the paperwork out of the way so the team spends its time on people, not process.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Tools &amp; Systems</span>
+      <h2>What I Run Day to Day</h2>
+    </div>
+    <div class="tools-cols">
+      <div class="tools-col">
+        <h4>HRIS &amp; Records</h4>
+        <div class="chip-wrap">
+          <span class="chip">ADP Workforce Now</span><span class="chip">Rippling</span><span class="chip">Kallidus Sapling</span><span class="chip">Workday</span><span class="chip">SAP SuccessFactors</span><span class="chip">PeopleSoft</span><span class="chip">Taleo</span>
+        </div>
+      </div>
+      <div class="tools-col">
+        <h4>Automation &amp; AI</h4>
+        <div class="chip-wrap">
+          <span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">n8n</span><span class="chip">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="tools-col">
+        <h4>Compliance &amp; Records</h4>
+        <div class="chip-wrap">
+          <span class="chip">EEO-1</span><span class="chip">ACA 1095-C</span><span class="chip">FLSA</span><span class="chip">ADA</span><span class="chip">FMLA</span><span class="chip">I-9 / E-Verify</span><span class="chip">Records Retention</span>
+        </div>
+      </div>
+    </div>
+    <div class="comp-list">
+      <div class="comp-item">Employee Lifecycle Ownership</div>
+      <div class="comp-item">HR Shared Services / SLAs</div>
+      <div class="comp-item">Workflow Governance</div>
+      <div class="comp-item">Board-Level Reporting</div>
+      <div class="comp-item">Multi-State Employment Law</div>
+      <div class="comp-item">Cross-Functional Partnership</div>
+      <div class="comp-item">Confidentiality &amp; Discretion</div>
+      <div class="comp-item">Builder's Mindset</div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="background:var(--bg-2);border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Experience</span>
+      <h2>Professional Experience</h2>
+    </div>
+
+    <div class="exp-role">
+      <div>
+        <div class="exp-when">Dec 2018 - Jan 2026</div>
+        <div class="exp-company">Ridecell Inc.<br>San Francisco, CA (Remote)<br>300+ employees &middot; US, Canada, Germany, India, Japan</div>
+      </div>
+      <div>
+        <div class="exp-title">Director of People Operations</div>
+        <ul class="exp-bullets">
+          <li>Built the entire HR Operations function from zero infrastructure, owning the full employee lifecycle from onboarding and offboarding through employment documentation and personnel records.</li>
+          <li>Designed and launched ASKPeople, an HR shared-services ticketing system with tiered SLAs and self-service job aids, resolving 5-10 daily employee requests within 24-48 hours.</li>
+          <li>Built and maintained a 20-25 SOP People Operations library, each with a named owner and backup coverage, supporting six consecutive clean SOC 2 Type 2 audits.</li>
+          <li>Owned HRIS administration and data integrity for ADP Workforce Now and Kallidus Sapling, and delivered board-level headcount and compliance dashboards every quarter.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-role">
+      <div>
+        <div class="exp-when">Jan 2026 - Jun 2026</div>
+        <div class="exp-company">Ridecell Inc.<br>San Francisco, CA (Remote)</div>
+      </div>
+      <div>
+        <div class="exp-title">Director of People Operations (Consultant)</div>
+        <ul class="exp-bullets">
+          <li>Retained on a part-time advisory basis following 7 years of full-time leadership, supporting a leadership transition and knowledge transfer to the incoming Senior Director.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-role">
+      <div>
+        <div class="exp-when">Feb 2026 - Apr 2026</div>
+        <div class="exp-company">Prezent AI<br>San Francisco, CA (Remote)<br>500+ employees, US &amp; India &middot; $70M+ VC-funded AI SaaS</div>
+      </div>
+      <div>
+        <div class="exp-title">Head of People Operations</div>
+        <ul class="exp-bullets">
+          <li>Served as the sole US-based HR leader for a 500+ employee AI SaaS company, personally covering US recruiting, benefits, and HRIS while leading a 6-person India-based People team.</li>
+          <li>Ran a 60-day compliance audit that surfaced HRIS data quality and documentation gaps, then designed a scalable operating model to prepare the org for SOC 2 and external audit readiness.</li>
+          <li>Designed a Claude-built Employee Action Form requiring approval before any HRIS update, achieving 100% adoption and a governance trail with triggers, approvals, and exception handling.</li>
+          <li>Led the HRIS migration consolidating Justworks and ADP Workforce Now onto Rippling, unifying 467 employees post-acquisition onto a single source of truth for executive reporting.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-role">
+      <div>
+        <div class="exp-when">Oct 2017 - Dec 2018</div>
+        <div class="exp-company">Munchery<br>San Francisco, CA<br>700+ employees &middot; multi-city food delivery</div>
+      </div>
+      <div>
+        <div class="exp-title">Manager, People Operations</div>
+        <ul class="exp-bullets">
+          <li>Managed HR compliance, benefits, and HR Operations for 700+ employees, maintaining adherence to FLSA, COBRA, ACA, and multi-state employment law.</li>
+          <li>Led I-9 audits and EEO-1 reporting, and uncovered over 30 fraudulent Social Security cards through a proactive compliance audit.</li>
+          <li>Redesigned New Hire Orientation and digitized HR workflows, improving onboarding efficiency by 75% and cutting paper usage by 80%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-role" style="border-bottom:1px solid var(--line);">
+      <div>
+        <div class="exp-when">2013 - 2017</div>
+        <div class="exp-company">Early Career</div>
+      </div>
+      <div>
+        <div class="exp-title">HR Generalist &amp; HRIS Roles</div>
+        <ul class="exp-bullets">
+          <li>HR Generalist (Contract), Off the Grid, Jul-Oct 2017. Employee Success Generalist (Contract), FinancialForce (Certinia), Feb-Jul 2017.</li>
+          <li>HR Operations Analyst, Dolby Laboratories, Sep 2016-Feb 2017. Led the SAP SuccessFactors implementation end to end.</li>
+          <li>HR Specialist, VF Corporation (The North Face / lucy Activewear), Feb 2015-Sep 2016. Workday and Taleo records for 1,000+ employees.</li>
+          <li>HRIS Coordinator, Pacific Dental Services, Apr 2014-Feb 2015. HRIS administration for 2,500+ employees.</li>
+          <li>Human Resources Coordinator, Quiksilver/Roxy/DC Inc., Jan 2013-Apr 2014. PeopleSoft records for 6,000+ employee files.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arc-wrap">
+      <div class="section-head" style="margin-top:48px;margin-bottom:20px;">
+        <span class="eyebrow">Career Arc</span>
+        <h2 style="font-size:1.5rem;">Thirteen Years, Drawn to Scale</h2>
+      </div>
+      <div class="arc-track" role="img" aria-label="Career timeline from January 2013 to September 2026, showing seven early HR roles followed by a seven-year tenure as Director of People Operations at Ridecell, then Head of People Operations at Prezent AI and a concurrent advisory engagement with Ridecell.">
+        <div class="arc-seg" style="left:0%;width:9.15%;" title="HR Coordinator, Quiksilver &middot; Jan 2013 - Apr 2014"></div>
+        <div class="arc-seg" style="left:9.15%;width:6.09%;" title="HRIS Coordinator, Pacific Dental &middot; Apr 2014 - Feb 2015"></div>
+        <div class="arc-seg" style="left:15.24%;width:11.59%;" title="HR Specialist, VF Corporation &middot; Feb 2015 - Sep 2016"></div>
+        <div class="arc-seg" style="left:26.83%;width:3.05%;" title="HR Operations Analyst, Dolby &middot; Sep 2016 - Feb 2017"></div>
+        <div class="arc-seg" style="left:29.88%;width:3.05%;" title="Employee Success Generalist, FinancialForce &middot; Feb 2017 - Jul 2017"></div>
+        <div class="arc-seg" style="left:32.93%;width:1.83%;" title="HR Generalist, Off the Grid &middot; Jul 2017 - Oct 2017"></div>
+        <div class="arc-seg" style="left:34.76%;width:8.53%;" title="Manager, People Operations, Munchery &middot; Oct 2017 - Dec 2018"></div>
+        <div class="arc-seg accent" style="left:43.29%;width:51.83%;" title="Director of People Operations, Ridecell &middot; Dec 2018 - Jan 2026">
+          <div class="arc-label" style="left:4%;top:20px;"><b>Director of People Operations</b><span>Ridecell &middot; 7 years</span></div>
+        </div>
+        <div class="arc-seg accent3" style="left:95.73%;width:1.22%;" title="Head of People Operations, Prezent AI - Feb 2026 - Apr 2026"></div>
+        <div class="arc-seg accent2" style="left:95.12%;width:3.05%;top:44px;bottom:auto;height:20px;" title="Director of People Operations (Consultant), Ridecell - Jan 2026 - Jun 2026 (concurrent advisory)"></div>
+      </div>
+      <div class="arc-years">
+        <span>2013</span><span>2016</span><span>2019</span><span>2022</span><span>2025</span><span>Today</span>
+      </div>
+      <div class="arc-legend">
+        <span><b style="color:var(--accent);">&#9632;</b> Director of People Operations, Ridecell (7 yrs)</span>
+        <span><b style="color:#ffd27a;">&#9632;</b> Head of People Operations, Prezent AI</span>
+        <span><b style="color:#7a5a22;">&#9632;</b> Concurrent advisory engagement, Ridecell</span>
+        <span><b style="color:#9aa1ac;">&#9632;</b> Early career roles, 2013-2018</span>
+      </div>
+      <div class="arc-note">Segments are proportional to actual start and end dates. The lower band shows the part-time Ridecell advisory engagement running concurrently with the Prezent AI role and after it.</div>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Credentials</span>
+      <h2>Education &amp; Certification</h2>
+    </div>
+    <div class="cred-grid">
+      <div class="cred-card">
+        <span class="badge">Certification</span>
+        <h4>SHRM-CP</h4>
+        <p>Society for Human Resource Management<br>Issued Jan 2023 &middot; Expires Dec 2029</p>
+      </div>
+      <div class="cred-card">
+        <span class="badge">Education</span>
+        <h4>Bachelor of Arts, Criminal Justice</h4>
+        <p>San Francisco State University</p>
+      </div>
+      <div class="cred-card">
+        <span class="badge">Education</span>
+        <h4>Certificate in Human Resource Management</h4>
+        <p>California State University, Long Beach</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" style="background:var(--bg-2);border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">In Their Words</span>
+      <h2>Testimonials</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">Really good work on how we have managed costs for our team the past few months. Very grateful to you for being proactive about this and being on top of it. It'll help.</div>
+        <div class="testi-who"><b>Samyak</b>Executive, Ridecell &middot; Slack, Jan 2023</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">Special thanks for helping me out regarding California paid family leave and immigration things. Appreciate your proactiveness for being a helping hand &#x1F642;</div>
+        <div class="testi-who"><b>Bhargav</b>Colleague, Ridecell &middot; Slack, Oct 2021</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">You both did a fantastic job today with the All Hands! Thank you for all the hustle and the quality work. It really shows in the production and results of a smooth and great All Hands. You are a HUGE part of the behind the scenes and often front-of-the-line magic &#x2728;&#x1F64F;</div>
+        <div class="testi-who"><b>Jacque</b>Senior Leader, Ridecell &middot; Slack, Oct 2022</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">Thank you for making my onboarding so smooth and a lovely experience. Wishing you all the best.</div>
+        <div class="testi-who"><b>Francine Carrick</b>President, Prezent Vivo &middot; LinkedIn, May 2026</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">Photos are AMAZING!!!! OMG. You have a great talent. Thank you for rallying the crowd last week at CONVERGE! Love the energy and sense of fun you brought to the event. Great work!</div>
+        <div class="testi-who"><b>Mark Thomas</b>Ridecell &middot; Email, Mar 2022</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recommendations">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">LinkedIn Recommendations</span>
+      <h2>From People Who've Worked With Me</h2>
+    </div>
+    <div class="reco-grid">
+      <div class="reco-card">
+        <div class="reco-head">
+          <div><b>Carthey Van Dyke</b><span class="role">Compassionate human first leader / Customer Success Executive / Culture Enthusiast</span></div>
+          <div class="date">Sep 3, 2026</div>
+        </div>
+        <div class="reco-body">I had the distinct pleasure to work with Cat and see the amount of structure she was able to implement while injecting an overwhelming amount of caring for the people. She was always thinking about how to balance the well being of the company with the well being of the people, advocating for each. What stood out most to me was how personally invested she was in my own growth. I went through some difficult personnel situations during our time working together, and Cat took the time to coach me through them directly, helping me think clearly, stay grounded, and come out the other side more confident in how I handled it. She didn't just manage from a distance. She checked in, asked the right questions, and made sure I felt supported, not just evaluated. That kind of guidance made a real difference in my satisfaction and confidence in my role. Cat has a rare ability to hold high standards for the business while never losing sight of the person in front of her.</div>
+      </div>
+      <div class="reco-card">
+        <div class="reco-head">
+          <div><b>John Nguyen</b><span class="role">Member of IT Staff at OpenAI</span></div>
+          <div class="date">Mar 31, 2021</div>
+        </div>
+        <div class="reco-body">It's rare that you come across standout talent like Cat. I had the pleasure of working closely with her during my time at Ridecell on IT/HR projects. We were working on refining the onboarding/offboarding process and she always came to the table with new ideas for improvement ready to share. I quickly learned that she is a results driven leader that always keeps culture on top of her mind. I was also particularly impressed by Cat's ability to build trusting relationships with not only her teammates, but everyone at the company in a matter of minutes! That skill often takes years to develop among leaders, but it seemed to come perfectly natural to her. Any company would be lucky to have Cat on their team. My highest recommendations goes out to her.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-name" style="font-family:'Barlow Condensed',Arial,sans-serif;font-weight:800;text-transform:uppercase;">Catherine Nolasco</div>
+      <div class="footer-tag">People Ops. Powered by AI.</div>
+    </div>
+    <div class="contact-list">
+      <a href="mailto:catherine.nolasco@gmail.com">catherine.nolasco@gmail.com</a>
+      <span style="font-size:0.92rem;color:var(--ink-muted);">(650) 784-3774</span>
+      <a href="https://linkedin.com/in/catherinenolasco" target="_blank" rel="noopener">linkedin.com/in/catherinenolasco</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>Prepared for Rocketdyne &middot; Senior Manager - HR Operations &amp; People Analytics</span>
+    <span>Portfolio updated September 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
